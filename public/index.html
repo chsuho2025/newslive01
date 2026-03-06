@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -7,276 +8,139 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   html, body {
     width: 100%; height: 100%;
     background: #F2F4F6;
     font-family: 'Noto Sans KR', -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
-
   .screen {
-    width: 100vw;
-    height: 56.25vw;
-    max-height: 100vh;
-    max-width: 177.78vh;
-    position: absolute;
-    top: 50%; left: 50%;
+    width: 100vw; height: 56.25vw;
+    max-height: 100vh; max-width: 177.78vh;
+    position: absolute; top: 50%; left: 50%;
     transform: translate(-50%, -50%);
     background: #F2F4F6;
-    display: flex;
-    flex-direction: column;
-    padding: 3.5% 5%;
-    gap: 2%;
+    display: flex; flex-direction: column;
+    padding: 3.5% 5%; gap: 2%;
   }
-
-  /* 헤더 */
   .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-shrink: 0;
+    display: flex; align-items: center;
+    justify-content: space-between; flex-shrink: 0;
   }
-
   .live-badge {
-    display: flex;
-    align-items: center;
-    gap: 0.55em;
-    background: #F04452;
-    color: #fff;
-    font-size: 1.1vw;
-    font-weight: 700;
-    padding: 0.5em 1.2em;
-    border-radius: 100px;
+    display: flex; align-items: center; gap: 0.55em;
+    background: #F04452; color: #fff;
+    font-size: 1.1vw; font-weight: 700;
+    padding: 0.5em 1.2em; border-radius: 100px;
     box-shadow: 0 2px 14px rgba(240,68,82,0.35);
   }
-
   .live-dot {
     width: 0.6em; height: 0.6em;
-    background: #fff;
-    border-radius: 50%;
+    background: #fff; border-radius: 50%;
     animation: blink 1.4s ease-in-out infinite;
   }
-
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
-
   .title-text {
-    font-size: 2.8vw;
-    font-weight: 900;
-    color: #191F28;
-    letter-spacing: -0.03em;
-    white-space: nowrap;
+    font-size: 2.8vw; font-weight: 900;
+    color: #191F28; letter-spacing: -0.03em; white-space: nowrap;
   }
   .title-text span { color: #3182F6; }
+  .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 0.2em; }
+  .dt-time { font-size: 1.6vw; font-weight: 800; color: #191F28; letter-spacing: -0.02em; line-height: 1; }
+  .dt-date { font-size: 0.9vw; font-weight: 500; color: #8B95A1; }
 
-  .header-right {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 0.2em;
-  }
-  .dt-time {
-    font-size: 1.6vw;
-    font-weight: 800;
-    color: #191F28;
-    letter-spacing: -0.02em;
-    line-height: 1;
-  }
-  .dt-date {
-    font-size: 0.9vw;
-    font-weight: 500;
-    color: #8B95A1;
-  }
+.loading-overlay {
+position: absolute; inset: 0;
+background: rgba(242,244,246,0.93);
+display: flex; flex-direction: column;
+align-items: center; justify-content: center;
+gap: 1.2vw; z-index: 100;
+border-radius: 1.2vw; backdrop-filter: blur(4px);
+transition: opacity 0.3s;
+}
+.loading-overlay.hidden { opacity: 0; pointer-events: none; }
+.spinner {
+width: 2.8vw; height: 2.8vw;
+border: 0.28vw solid #E5E8EB;
+border-top-color: #3182F6; border-radius: 50%;
+animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-text { font-size: 1.3vw; font-weight: 700; color: #3182F6; }
+.loading-sub { font-size: 1vw; font-weight: 500; color: #8B95A1; margin-top: -0.6vw; }
 
-  /* 로딩 오버레이 */
-  .loading-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(242,244,246,0.93);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1.2vw;
-    z-index: 100;
-    border-radius: 1.2vw;
-    backdrop-filter: blur(4px);
-    transition: opacity 0.3s;
-  }
-  .loading-overlay.hidden { opacity: 0; pointer-events: none; }
+.news-list {
+display: flex; flex-direction: column;
+gap: 1.2%; flex: 1; min-height: 0; position: relative;
+}
+.news-card {
+background: #fff; border-radius: 1.2vw;
+border: 1.5px solid #E5E8EB;
+box-shadow: 0 1px 8px rgba(0,0,0,0.04);
+overflow: hidden; flex: 1;
+display: flex; flex-direction: column;
+transition: flex 0.5s cubic-bezier(0.23,1,0.32,1), border-color 0.3s, box-shadow 0.3s;
+}
+.news-card.active {
+flex: 3.5; border-color: #3182F6;
+box-shadow: 0 6px 28px rgba(49,130,246,0.15);
+}
+.news-card.rank1 {
+background: #3182F6; border-color: #3182F6;
+box-shadow: 0 4px 20px rgba(49,130,246,0.28);
+}
+.news-card.rank1.active { flex: 3.5; box-shadow: 0 8px 36px rgba(49,130,246,0.38); }
+.news-card.rolling { animation: cardRoll 0.6s cubic-bezier(0.23,1,0.32,1) both; }
+@keyframes cardRoll { 0%{opacity:0.3;transform:translateY(-8px)} 100%{opacity:1;transform:translateY(0)} }
 
-  .spinner {
-    width: 2.8vw; height: 2.8vw;
-    border: 0.28vw solid #E5E8EB;
-    border-top-color: #3182F6;
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
+.card-row {
+display: flex; align-items: center;
+padding: 0 2.4%; gap: 1.8%; flex: 1; min-height: 0;
+}
+.rank-num {
+font-size: 2.4vw; font-weight: 900;
+letter-spacing: -0.04em; min-width: 3.3vw;
+text-align: center; line-height: 1;
+color: #191F28; flex-shrink: 0;
+}
+.news-card.rank1 .rank-num { color: #fff; }
+.vline { width: 1.5px; height: 36%; background: #E5E8EB; flex-shrink: 0; }
+.news-card.rank1 .vline { background: rgba(255,255,255,0.3); }
+.headline {
+flex: 1; font-weight: 700; color: #191F28;
+letter-spacing: -0.02em; line-height: 1.4; word-break: keep-all;
+}
+.news-card.rank1 .headline { color: #fff; }
 
-  .loading-text { font-size: 1.3vw; font-weight: 700; color: #3182F6; }
-  .loading-sub { font-size: 1vw; font-weight: 500; color: #8B95A1; margin-top: -0.6vw; }
+.card-extra {
+max-height: 0; overflow: hidden; opacity: 0;
+transition: max-height 0.5s cubic-bezier(0.23,1,0.32,1), opacity 0.35s ease 0.1s, padding 0.4s;
+padding: 0 2.4% 0 calc(2.4% + 3.3vw + 1.8% + 1.5px + 1.8%);
+}
+.news-card.active .card-extra { max-height: 12vw; opacity: 1; padding-bottom: 1.2vw; }
+.extra-text {
+font-size: 1.15vw; font-weight: 500;
+color: #4E5968; line-height: 1.8; word-break: keep-all;
+}
+.news-card.rank1 .extra-text { color: rgba(255,255,255,0.88); }
 
-  /* 뉴스 리스트 */
-  .news-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.2%;
-    flex: 1;
-    min-height: 0;
-    position: relative;
-  }
-
-  /* 뉴스 카드 */
-  .news-card {
-    background: #fff;
-    border-radius: 1.2vw;
-    border: 1.5px solid #E5E8EB;
-    box-shadow: 0 1px 8px rgba(0,0,0,0.04);
-    overflow: hidden;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    transition: flex 0.5s cubic-bezier(0.23,1,0.32,1),
-                border-color 0.3s, box-shadow 0.3s;
-  }
-
-  .news-card.active {
-    flex: 3.5;
-    border-color: #3182F6;
-    box-shadow: 0 6px 28px rgba(49,130,246,0.15);
-  }
-
-  .news-card.rank1 {
-    background: #3182F6;
-    border-color: #3182F6;
-    box-shadow: 0 4px 20px rgba(49,130,246,0.28);
-  }
-  .news-card.rank1.active {
-    flex: 3.5;
-    box-shadow: 0 8px 36px rgba(49,130,246,0.38);
-  }
-
-  .news-card.rolling {
-    animation: cardRoll 0.6s cubic-bezier(0.23,1,0.32,1) both;
-  }
-  @keyframes cardRoll {
-    0% { opacity: 0.3; transform: translateY(-8px); }
-    100% { opacity: 1; transform: translateY(0); }
-  }
-
-  .card-row {
-    display: flex;
-    align-items: center;
-    padding: 0 2.4%;
-    gap: 1.8%;
-    flex: 1;
-    min-height: 0;
-  }
-
-  .rank-num {
-    font-size: 2.4vw;
-    font-weight: 900;
-    letter-spacing: -0.04em;
-    min-width: 3.3vw;
-    text-align: center;
-    line-height: 1;
-    color: #191F28;
-    flex-shrink: 0;
-  }
-  .news-card.rank1 .rank-num { color: #fff; }
-
-  .vline {
-    width: 1.5px; height: 36%;
-    background: #E5E8EB;
-    flex-shrink: 0;
-  }
-  .news-card.rank1 .vline { background: rgba(255,255,255,0.3); }
-
-  .headline {
-    flex: 1;
-    font-weight: 700;
-    color: #191F28;
-    letter-spacing: -0.02em;
-    line-height: 1.4;
-    word-break: keep-all;
-  }
-  .news-card.rank1 .headline { color: #fff; }
-
-  /* 확장 영역 */
-  .card-extra {
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    transition: max-height 0.5s cubic-bezier(0.23,1,0.32,1),
-                opacity 0.35s ease 0.1s,
-                padding 0.4s;
-    padding: 0 2.4% 0 calc(2.4% + 3.3vw + 1.8% + 1.5px + 1.8%);
-  }
-  .news-card.active .card-extra {
-    max-height: 12vw;
-    opacity: 1;
-    padding-bottom: 1.2vw;
-  }
-
-  .extra-text {
-    font-size: 1.15vw;
-    font-weight: 500;
-    color: #4E5968;
-    line-height: 1.8;
-    word-break: keep-all;
-  }
-  .news-card.rank1 .extra-text { color: rgba(255,255,255,0.88); }
-
-  /* 하단 */
-  .footer {
-    display: flex;
-    align-items: center;
-    gap: 1.5%;
-    flex-shrink: 0;
-  }
-  .ai-badge {
-    display: flex;
-    align-items: center;
-    gap: 0.4em;
-    font-size: 0.9vw;
-    font-weight: 600;
-    color: #8B95A1;
-    white-space: nowrap;
-  }
-  .ai-dot {
-    width: 0.5em; height: 0.5em;
-    background: #00B493;
-    border-radius: 50%;
-    animation: blink 2s ease-in-out infinite;
-  }
-  .prog-track {
-    flex: 1;
-    height: 0.28vw;
-    background: #E5E8EB;
-    border-radius: 100px;
-    overflow: hidden;
-  }
-  .prog-fill {
-    height: 100%;
-    background: #3182F6;
-    border-radius: 100px;
-    width: 0%;
-    transition: width 1s linear;
-  }
-  .footer-count {
-    font-size: 1vw;
-    font-weight: 700;
-    color: #3182F6;
-    white-space: nowrap;
-    min-width: 4vw;
-    text-align: right;
-  }
+.footer { display: flex; align-items: center; gap: 1.5%; flex-shrink: 0; }
+.ai-badge {
+display: flex; align-items: center; gap: 0.4em;
+font-size: 0.9vw; font-weight: 600; color: #8B95A1; white-space: nowrap;
+}
+.ai-dot {
+width: 0.5em; height: 0.5em; background: #00B493;
+border-radius: 50%; animation: blink 2s ease-in-out infinite;
+}
+.prog-track { flex: 1; height: 0.28vw; background: #E5E8EB; border-radius: 100px; overflow: hidden; }
+.prog-fill { height: 100%; background: #3182F6; border-radius: 100px; width: 0%; transition: width 1s linear; }
+.footer-count { font-size: 1vw; font-weight: 700; color: #3182F6; white-space: nowrap; min-width: 4vw; text-align: right; }
 </style>
+
 </head>
 <body>
 <div class="screen">
-
   <div class="header">
     <div class="live-badge"><div class="live-dot"></div>LIVE</div>
     <div class="title-text">실시간 뉴스 <span>TOP 5</span></div>
@@ -299,15 +163,14 @@
     <div class="prog-track"><div class="prog-fill" id="progFill"></div></div>
     <div class="footer-count" id="countdown">60초 후</div>
   </div>
-
 </div>
+
 <script>
   var newsData = [];
   var seqTimer = null;
   var seqStep = 0;
   var timeLeft = 60;
 
-  // 시계
   function updateClock() {
     var now = new Date();
     var h = String(now.getHours()).padStart(2,'0');
@@ -320,9 +183,7 @@
   updateClock();
   setInterval(updateClock, 1000);
 
-  // 헤드라인 폰트 사이즈
-  function getFontSize(text) {
-    var len = text.length;
+  function getFontSize(len) {
     if (len <= 18) return '2.0vw';
     if (len <= 28) return '1.85vw';
     if (len <= 38) return '1.7vw';
@@ -330,35 +191,27 @@
     return '1.4vw';
   }
 
-  // 카드 렌더링
   function renderCards(data, animate) {
     var list = document.getElementById('newsList');
     var loader = document.getElementById('loader');
-    var cards = list.querySelectorAll('.news-card');
-    cards.forEach(function(c){ c.remove(); });
+    list.querySelectorAll('.news-card').forEach(function(c){ c.remove(); });
 
     data.forEach(function(item, i) {
       var card = document.createElement('div');
       card.className = 'news-card' + (i === 0 ? ' rank1' : '') + (animate ? ' rolling' : '');
       card.id = 'card-' + i;
       if (animate) card.style.animationDelay = (i * 0.12) + 's';
-
       card.innerHTML =
         '<div class="card-row">' +
           '<div class="rank-num">0' + (i+1) + '</div>' +
           '<div class="vline"></div>' +
-          '<div class="headline" style="font-size:' + getFontSize(item.headline) + '">' + item.headline + '</div>' +
+          '<div class="headline" style="font-size:' + getFontSize(item.headline.length) + '">' + item.headline + '</div>' +
         '</div>' +
-        '<div class="card-extra">' +
-          '<div class="extra-text">' + item.detail + '</div>' +
-        '</div>';
-
-      // 로더 앞에 삽입
+        '<div class="card-extra"><div class="extra-text">' + item.detail + '</div></div>';
       list.insertBefore(card, loader);
     });
   }
 
-  // 카드 활성화
   function activateCard(idx) {
     for (var i = 0; i < 5; i++) {
       var c = document.getElementById('card-' + i);
@@ -370,7 +223,6 @@
     }
   }
 
-  // 시퀀스: 5초 → 10초×5 → 5초 → 반복
   function runSeq() {
     clearTimeout(seqTimer);
     if (seqStep === 0) {
@@ -385,7 +237,6 @@
     }
   }
 
-  // 뉴스 가져오기 (Vercel API 호출)
   async function fetchNews() {
     var loader = document.getElementById('loader');
     loader.classList.remove('hidden');
@@ -395,38 +246,16 @@
     try {
       var res = await fetch('/api/news');
       var data = await res.json();
-
       if (!data.items || data.items.length === 0) throw new Error('데이터 없음');
 
-      // 상위 20개 뉴스를 Claude AI로 TOP 5 선별 + 요약
-      var claudeRes = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
-          max_tokens: 1000,
-          system: '당신은 뉴스 큐레이터입니다. JSON 배열만 반환하고 다른 텍스트는 절대 포함하지 마세요.',
-          messages: [{
-            role: 'user',
-            content: '다음 뉴스 목록에서 가장 중요하고 이슈가 되는 뉴스 5개를 선별하고, 각 뉴스의 detail을 480~500자로 요약해주세요. JSON 형식으로만 응답하세요: [{"headline":"뉴스제목","detail":"480~500자 요약"},...]\n\n뉴스 목록:\n' +
-              data.items.map(function(item, i){ return (i+1) + '. ' + item.title + '\n' + item.description; }).join('\n\n')
-          }]
-        })
+      // 상위 5개 바로 표시 (description을 detail로 사용)
+      newsData = data.items.slice(0, 5).map(function(item) {
+        return {
+          headline: item.title,
+          detail: item.description || '자세한 내용은 원문을 확인해주세요.'
+        };
       });
-
-      var claudeData = await claudeRes.json();
-      var text = (claudeData.content || [])
-        .filter(function(b){ return b.type === 'text'; })
-        .map(function(b){ return b.text; })
-        .join('');
-
-      var clean = text.replace(/```json|```/g, '').trim();
-      var parsed = JSON.parse(clean);
-
-      if (Array.isArray(parsed) && parsed.length > 0) {
-        newsData = parsed.slice(0, 5);
-        renderCards(newsData, true);
-      }
+      renderCards(newsData, true);
 
     } catch(e) {
       console.error(e);
@@ -436,7 +265,7 @@
           { headline: '잠시 후 자동으로 재시도합니다', detail: '60초 후 자동으로 다시 뉴스를 불러옵니다.' },
           { headline: 'API 키 설정을 확인해주세요', detail: 'Vercel 환경변수에 NAVER_CLIENT_ID와 NAVER_CLIENT_SECRET이 올바르게 설정되어 있는지 확인하세요.' },
           { headline: '잠시만 기다려주세요', detail: '뉴스 데이터를 가져오는 중입니다.' },
-          { headline: '60초마다 자동 업데이트됩니다', detail: '네이버 뉴스 API와 AI가 실시간으로 협력하여 가장 핫한 뉴스를 선별합니다.' }
+          { headline: '60초마다 자동 업데이트됩니다', detail: '네이버 뉴스 API가 실시간으로 최신 뉴스를 가져옵니다.' }
         ];
         renderCards(newsData, false);
       }
@@ -447,18 +276,15 @@
     }
   }
 
-  // 카운트다운
   setInterval(function() {
     timeLeft--;
     document.getElementById('progFill').style.width = ((60 - timeLeft) / 60 * 100) + '%';
     document.getElementById('countdown').textContent = timeLeft + '초 후';
-    if (timeLeft <= 0) {
-      timeLeft = 60;
-      fetchNews();
-    }
+    if (timeLeft <= 0) { timeLeft = 60; fetchNews(); }
   }, 1000);
 
   fetchNews();
 </script>
+
 </body>
 </html>
