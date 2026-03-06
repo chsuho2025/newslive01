@@ -106,21 +106,45 @@ color: #191F28; flex-shrink: 0;
 .news-card.rank1 .rank-num { color: #fff; }
 .vline { width: 1.5px; height: 36%; background: #E5E8EB; flex-shrink: 0; }
 .news-card.rank1 .vline { background: rgba(255,255,255,0.3); }
+
+/* 타이틀: 줄바꿈 허용, 말줄임 없음 */
 .headline {
-flex: 1; font-weight: 700; color: #191F28;
-letter-spacing: -0.02em; line-height: 1.4; word-break: keep-all;
+flex: 1;
+font-weight: 700;
+color: #191F28;
+letter-spacing: -0.02em;
+line-height: 1.35;
+word-break: keep-all;
+overflow: hidden;
+/* 말줄임 제거 */
+display: block;
+white-space: normal;
 }
 .news-card.rank1 .headline { color: #fff; }
 
+/* 확장 영역 */
 .card-extra {
 max-height: 0; overflow: hidden; opacity: 0;
 transition: max-height 0.5s cubic-bezier(0.23,1,0.32,1), opacity 0.35s ease 0.1s, padding 0.4s;
 padding: 0 2.4% 0 calc(2.4% + 3.3vw + 1.8% + 1.5px + 1.8%);
 }
-.news-card.active .card-extra { max-height: 12vw; opacity: 1; padding-bottom: 1.2vw; }
+.news-card.active .card-extra {
+/* 충분히 크게 설정 */
+max-height: 20vw;
+opacity: 1;
+padding-bottom: 1.2vw;
+}
+
+/* 설명: 말줄임 없음, 줄바꿈 자연스럽게 */
 .extra-text {
-font-size: 1.15vw; font-weight: 500;
-color: #4E5968; line-height: 1.8; word-break: keep-all;
+font-size: 1.1vw;
+font-weight: 500;
+color: #4E5968;
+line-height: 1.8;
+word-break: keep-all;
+white-space: normal;
+overflow: visible;
+/* 말줄임 클램프 제거 */
 }
 .news-card.rank1 .extra-text { color: rgba(255,255,255,0.88); }
 
@@ -183,12 +207,24 @@ border-radius: 50%; animation: blink 2s ease-in-out infinite;
   updateClock();
   setInterval(updateClock, 1000);
 
+  // 타이틀 길이에 따라 폰트 자동 조절
   function getFontSize(len) {
-    if (len <= 18) return '2.0vw';
-    if (len <= 28) return '1.85vw';
-    if (len <= 38) return '1.7vw';
-    if (len <= 50) return '1.55vw';
-    return '1.4vw';
+    if (len <= 18) return '1.9vw';
+    if (len <= 28) return '1.75vw';
+    if (len <= 38) return '1.6vw';
+    if (len <= 50) return '1.45vw';
+    return '1.3vw';
+  }
+
+  // 텍스트 자르기 (말줄임 없이 문장 단위로)
+  function trimText(text, maxLen) {
+    if (!text) return '';
+    if (text.length <= maxLen) return text;
+    // maxLen 이내에서 마지막 온점/공백 기준으로 자르기
+    var cut = text.substring(0, maxLen);
+    var lastPeriod = Math.max(cut.lastIndexOf('.'), cut.lastIndexOf(' '));
+    if (lastPeriod > maxLen * 0.7) return cut.substring(0, lastPeriod + 1);
+    return cut;
   }
 
   function renderCards(data, animate) {
@@ -201,13 +237,17 @@ border-radius: 50%; animation: blink 2s ease-in-out infinite;
       card.className = 'news-card' + (i === 0 ? ' rank1' : '') + (animate ? ' rolling' : '');
       card.id = 'card-' + i;
       if (animate) card.style.animationDelay = (i * 0.12) + 's';
+
+      var headline = trimText(item.headline, 40);
+      var detail = trimText(item.detail, 120);
+
       card.innerHTML =
         '<div class="card-row">' +
           '<div class="rank-num">0' + (i+1) + '</div>' +
           '<div class="vline"></div>' +
-          '<div class="headline" style="font-size:' + getFontSize(item.headline.length) + '">' + item.headline + '</div>' +
+          '<div class="headline" style="font-size:' + getFontSize(headline.length) + '">' + headline + '</div>' +
         '</div>' +
-        '<div class="card-extra"><div class="extra-text">' + item.detail + '</div></div>';
+        '<div class="card-extra"><div class="extra-text">' + detail + '</div></div>';
       list.insertBefore(card, loader);
     });
   }
@@ -248,7 +288,6 @@ border-radius: 50%; animation: blink 2s ease-in-out infinite;
       var data = await res.json();
       if (!data.items || data.items.length === 0) throw new Error('데이터 없음');
 
-      // 상위 5개 바로 표시 (description을 detail로 사용)
       newsData = data.items.slice(0, 5).map(function(item) {
         return {
           headline: item.title,
@@ -261,9 +300,9 @@ border-radius: 50%; animation: blink 2s ease-in-out infinite;
       console.error(e);
       if (newsData.length === 0) {
         newsData = [
-          { headline: '뉴스를 불러오는 중 오류가 발생했습니다', detail: '네트워크 연결을 확인하고 잠시 후 다시 시도해주세요.' },
+          { headline: '뉴스를 불러오는 중 오류가 발생했습니다', detail: '네트워크 연결을 확인해주세요.' },
           { headline: '잠시 후 자동으로 재시도합니다', detail: '60초 후 자동으로 다시 뉴스를 불러옵니다.' },
-          { headline: 'API 키 설정을 확인해주세요', detail: 'Vercel 환경변수에 NAVER_CLIENT_ID와 NAVER_CLIENT_SECRET이 올바르게 설정되어 있는지 확인하세요.' },
+          { headline: 'API 키 설정을 확인해주세요', detail: 'Vercel 환경변수를 확인해주세요.' },
           { headline: '잠시만 기다려주세요', detail: '뉴스 데이터를 가져오는 중입니다.' },
           { headline: '60초마다 자동 업데이트됩니다', detail: '네이버 뉴스 API가 실시간으로 최신 뉴스를 가져옵니다.' }
         ];
