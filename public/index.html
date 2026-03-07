@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -10,64 +9,64 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html, body {
-width: 100%; height: 100%;
-background: #1a1a1a;
-font-family: ‘Noto Sans KR’, -apple-system, sans-serif;
--webkit-font-smoothing: antialiased;
+  width: 100%; height: 100%;
+  background: #1a1a1a;
+  font-family: 'Noto Sans KR', -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* ── SCREEN (16:9) ── */
 .screen {
-width: 100vw; height: 56.25vw;
-max-height: 100vh; max-width: 177.78vh;
-position: absolute; top: 50%; left: 50%;
-transform: translate(-50%, -50%);
-background: #fff;
-display: grid;
-grid-template-rows: auto 1fr auto;
-padding: 2.8% 4%;
-gap: 1.6%;
-overflow: hidden;
+  width: 100vw; height: 56.25vw;
+  max-height: 100vh; max-width: 177.78vh;
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: 2.8% 4%;
+  gap: 1.6%;
+  overflow: hidden;
 }
 
 /* ── HEADER ── */
 .header {
-display: flex; align-items: center;
-justify-content: space-between;
+  display: flex; align-items: center;
+  justify-content: space-between;
 }
 .header-left { display: flex; align-items: center; gap: 0.9vw; }
 
 .live-badge {
-display: flex; align-items: center; gap: 0.5em;
-background: #111; color: #fff;
-font-size: 0.9vw; font-weight: 700;
-padding: 0.45em 1em; border-radius: 100px;
-letter-spacing: 0.06em;
+  display: flex; align-items: center; gap: 0.5em;
+  background: #111; color: #fff;
+  font-size: 0.9vw; font-weight: 700;
+  padding: 0.45em 1em; border-radius: 100px;
+  letter-spacing: 0.06em;
 }
 .live-dot {
-width: 0.5em; height: 0.5em;
-background: #7C3AED; border-radius: 50%;
-animation: pulse 1.6s ease-in-out infinite;
+  width: 0.5em; height: 0.5em;
+  background: #7C3AED; border-radius: 50%;
+  animation: pulse 1.6s ease-in-out infinite;
 }
 @keyframes pulse {
-0%,100% { opacity:1; box-shadow: 0 0 0 0 rgba(124,58,237,0.5); }
-50% { opacity:0.6; box-shadow: 0 0 0 0.3em rgba(124,58,237,0); }
+  0%,100% { opacity:1; box-shadow: 0 0 0 0 rgba(124,58,237,0.5); }
+  50% { opacity:0.6; box-shadow: 0 0 0 0.3em rgba(124,58,237,0); }
 }
 
 .page-chip {
-font-size: 0.85vw; font-weight: 600;
-color: #7C3AED;
-padding: 0.4em 0.9em;
-border: 1px solid rgba(124,58,237,0.25);
-border-radius: 100px;
-letter-spacing: 0.02em;
-transition: opacity 0.3s;
+  font-size: 0.85vw; font-weight: 600;
+  color: #7C3AED;
+  padding: 0.4em 0.9em;
+  border: 1px solid rgba(124,58,237,0.25);
+  border-radius: 100px;
+  letter-spacing: 0.02em;
+  transition: opacity 0.3s;
 }
 
 .title-text {
-font-size: 2.2vw; font-weight: 900;
-color: #111; letter-spacing: -0.04em;
-position: absolute; left: 50%; transform: translateX(-50%);
+  font-size: 2.2vw; font-weight: 900;
+  color: #111; letter-spacing: -0.04em;
+  position: absolute; left: 50%; transform: translateX(-50%);
 }
 .title-text span { color: #7C3AED; }
 
@@ -77,218 +76,216 @@ position: absolute; left: 50%; transform: translateX(-50%);
 
 /* ── NEWS LIST (카드 컨테이너) ── */
 .news-list {
-position: relative;
-display: flex; flex-direction: column;
-gap: 0.85%;
-min-height: 0;
+  position: relative;
+  display: flex; flex-direction: column;
+  gap: 0.85%;
+  min-height: 0;
 }
 
 /* ── CARD ── */
 .news-card {
-background: #fff;
-border: 1px solid #EBEBEB;
-border-radius: 0.7vw;
-overflow: hidden; flex: 1;
-display: flex; flex-direction: column;
-transition:
-flex 0.55s cubic-bezier(0.22,1,0.36,1),
-border-color 0.3s,
-box-shadow 0.3s,
-opacity 0.35s,
-transform 0.35s;
+  background: #fff;
+  border: 1px solid #EBEBEB;
+  border-radius: 0.7vw;
+  overflow: hidden; flex: 1;
+  display: flex; flex-direction: column;
+  transition:
+    flex 0.55s cubic-bezier(0.22,1,0.36,1),
+    border-color 0.3s,
+    box-shadow 0.3s,
+    opacity 0.35s,
+    transform 0.35s;
 }
 .news-card.active {
-flex: 4;
-border-color: #7C3AED;
-box-shadow: 0 3px 20px rgba(124,58,237,0.1);
+  flex: 4;
+  border-color: #7C3AED;
+  box-shadow: 0 3px 20px rgba(124,58,237,0.1);
 }
 
 /* 페이지 전환 롤 애니메이션 */
 @keyframes rollIn {
-0%   { opacity: 0; transform: translateY(14px); }
-100% { opacity: 1; transform: translateY(0); }
+  0%   { opacity: 0; transform: translateY(14px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 .news-card.roll-in {
-animation: rollIn 0.42s cubic-bezier(0.22,1,0.36,1) both;
+  animation: rollIn 0.42s cubic-bezier(0.22,1,0.36,1) both;
 }
 
 /* 카드 내부 행 */
 .card-row {
-display: flex; align-items: center;
-padding: 0 2%; gap: 1.4%;
-flex: 1; min-height: 0;
+  display: flex; align-items: center;
+  padding: 0 2%; gap: 1.4%;
+  flex: 1; min-height: 0;
 }
 
 .rank-num {
-font-size: 2vw; font-weight: 900;
-letter-spacing: -0.05em;
-min-width: 2.8vw; text-align: center; line-height: 1;
-color: #ddd; flex-shrink: 0;
-transition: font-size 0.45s cubic-bezier(0.22,1,0.36,1),
-color 0.3s;
+  font-size: 2vw; font-weight: 900;
+  letter-spacing: -0.05em;
+  min-width: 2.8vw; text-align: center; line-height: 1;
+  color: #ddd; flex-shrink: 0;
+  transition: font-size 0.45s cubic-bezier(0.22,1,0.36,1),
+              color 0.3s;
 }
 .news-card.active .rank-num {
-font-size: 2.6vw;
-color: #7C3AED;
+  font-size: 2.6vw;
+  color: #7C3AED;
 }
 
 .vline {
-width: 1px; height: 32%;
-background: #EBEBEB; flex-shrink: 0;
-transition: background 0.3s;
+  width: 1px; height: 32%;
+  background: #EBEBEB; flex-shrink: 0;
+  transition: background 0.3s;
 }
 .news-card.active .vline { background: rgba(124,58,237,0.18); }
 
 .headline {
-flex: 1;
-font-weight: 700; color: #111;
-letter-spacing: -0.025em;
-line-height: 1.35;
-word-break: keep-all;
-overflow: hidden;
-transition: font-size 0.45s cubic-bezier(0.22,1,0.36,1);
+  flex: 1;
+  font-weight: 700; color: #111;
+  letter-spacing: -0.025em;
+  line-height: 1.35;
+  word-break: keep-all;
+  overflow: hidden;
+  transition: font-size 0.45s cubic-bezier(0.22,1,0.36,1);
 }
 
 /* 확장 영역 */
 .card-extra {
-max-height: 0; overflow: hidden; opacity: 0;
-padding: 0 2% 0 calc(2% + 2.8vw + 1.4% + 1px + 1.4%);
-transition:
-max-height 0.5s cubic-bezier(0.22,1,0.36,1),
-opacity 0.3s ease 0.1s,
-padding-bottom 0.4s;
+  max-height: 0; overflow: hidden; opacity: 0;
+  padding: 0 2% 0 calc(2% + 2.8vw + 1.4% + 1px + 1.4%);
+  transition:
+    max-height 0.5s cubic-bezier(0.22,1,0.36,1),
+    opacity 0.3s ease 0.1s,
+    padding-bottom 0.4s;
 }
 .news-card.active .card-extra {
-max-height: 4.5vw;
-opacity: 1;
-padding-bottom: 0.9vw;
+  max-height: 4.5vw;
+  opacity: 1;
+  padding-bottom: 0.9vw;
 }
 .time-ago {
-font-size: 0.92vw; font-weight: 500;
-color: #bbb;
-display: flex; align-items: center; gap: 0.45em;
+  font-size: 0.92vw; font-weight: 500;
+  color: #bbb;
+  display: flex; align-items: center; gap: 0.45em;
 }
 .time-ago::before {
-content: ‘’;
-width: 0.3em; height: 0.3em;
-background: #7C3AED; border-radius: 50%;
-flex-shrink: 0;
+  content: '';
+  width: 0.3em; height: 0.3em;
+  background: #7C3AED; border-radius: 50%;
+  flex-shrink: 0;
 }
 
 /* ── FOOTER ── */
 .footer {
-display: flex; align-items: center; gap: 1.2%;
+  display: flex; align-items: center; gap: 1.2%;
 }
 .ai-badge {
-display: flex; align-items: center; gap: 0.4em;
-font-size: 0.8vw; font-weight: 500; color: #bbb; white-space: nowrap;
+  display: flex; align-items: center; gap: 0.4em;
+  font-size: 0.8vw; font-weight: 500; color: #bbb; white-space: nowrap;
 }
 .ai-dot {
-width: 0.4em; height: 0.4em;
-background: #7C3AED; border-radius: 50%;
-animation: pulse 2.5s ease-in-out infinite;
+  width: 0.4em; height: 0.4em;
+  background: #7C3AED; border-radius: 50%;
+  animation: pulse 2.5s ease-in-out infinite;
 }
 .prog-track {
-flex: 1; height: 1px;
-background: #EBEBEB; overflow: hidden;
+  flex: 1; height: 1px;
+  background: #EBEBEB; overflow: hidden;
 }
 .prog-fill {
-height: 100%; background: #7C3AED;
-width: 0%; transition: width 1s linear;
+  height: 100%; background: #7C3AED;
+  width: 0%; transition: width 1s linear;
 }
 .footer-count {
-font-size: 0.85vw; font-weight: 600;
-color: #aaa; white-space: nowrap; min-width: 3.5vw; text-align: right;
+  font-size: 0.85vw; font-weight: 600;
+  color: #aaa; white-space: nowrap; min-width: 3.5vw; text-align: right;
 }
 
 /* ══════════════════════════════
-UPDATE OVERLAY (3페이지)
+   UPDATE OVERLAY (3페이지)
 ══════════════════════════════ */
 .update-overlay {
-position: absolute; inset: 0;
-background: #0C0C0C;
-display: flex; flex-direction: column;
-align-items: center; justify-content: center;
-gap: 2.4vw;
-border-radius: 0.7vw;
-z-index: 100;
-opacity: 0; pointer-events: none;
-transition: opacity 0.5s ease;
+  position: absolute; inset: 0;
+  background: #0C0C0C;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 2.4vw;
+  border-radius: 0.7vw;
+  z-index: 100;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.5s ease;
 }
 .update-overlay.visible {
-opacity: 1; pointer-events: all;
+  opacity: 1; pointer-events: all;
 }
 
 /* 상단 보라 라인 */
 .update-overlay::before {
-content: ‘’;
-position: absolute; top: 0; left: 8%; right: 8%;
-height: 1px;
-background: linear-gradient(90deg, transparent, #7C3AED 40%, #A855F7 60%, transparent);
-animation: shimmer 3s ease-in-out infinite;
+  content: '';
+  position: absolute; top: 0; left: 8%; right: 8%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #7C3AED 40%, #A855F7 60%, transparent);
+  animation: shimmer 3s ease-in-out infinite;
 }
 @keyframes shimmer { 0%,100%{opacity:0.3} 50%{opacity:1} }
 
 .upd-inner {
-display: flex; flex-direction: column;
-align-items: center; gap: 0.6vw;
-position: relative; z-index: 1;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 0.6vw;
+  position: relative; z-index: 1;
 }
 .upd-label {
-font-size: 0.7vw; font-weight: 700;
-letter-spacing: 0.28em; text-transform: uppercase;
-color: #7C3AED; opacity: 0.85;
+  font-size: 0.7vw; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: #7C3AED; opacity: 0.85;
 }
 .upd-title {
-font-size: 3.6vw; font-weight: 900;
-color: #fff; letter-spacing: -0.05em;
-line-height: 1.05; text-align: center;
+  font-size: 3.6vw; font-weight: 900;
+  color: #fff; letter-spacing: -0.05em;
+  line-height: 1.05; text-align: center;
 }
 .upd-title span { color: #A855F7; }
 .upd-sub {
-font-size: 0.88vw; color: rgba(255,255,255,0.22);
-font-weight: 400; letter-spacing: 0.02em;
-margin-top: 0.3vw;
+  font-size: 0.88vw; color: rgba(255,255,255,0.22);
+  font-weight: 400; letter-spacing: 0.02em;
+  margin-top: 0.3vw;
 }
 
 .upd-bar-wrap {
-width: 16vw; display: flex; flex-direction: column;
-align-items: center; gap: 0.65vw;
-position: relative; z-index: 1;
+  width: 16vw; display: flex; flex-direction: column;
+  align-items: center; gap: 0.65vw;
+  position: relative; z-index: 1;
 }
 .upd-bar-track {
-width: 100%; height: 1px;
-background: rgba(255,255,255,0.07); position: relative; overflow: hidden;
+  width: 100%; height: 1px;
+  background: rgba(255,255,255,0.07); position: relative; overflow: hidden;
 }
 .upd-bar-fill {
-position: absolute; inset: 0 auto 0 0;
-width: 0%; background: #7C3AED;
-box-shadow: 0 0 10px rgba(124,58,237,0.6);
+  position: absolute; inset: 0 auto 0 0;
+  width: 0%; background: #7C3AED;
+  box-shadow: 0 0 10px rgba(124,58,237,0.6);
 }
 .upd-bar-text {
-font-size: 0.68vw; color: rgba(255,255,255,0.18);
-letter-spacing: 0.08em; text-transform: uppercase;
+  font-size: 0.68vw; color: rgba(255,255,255,0.18);
+  letter-spacing: 0.08em; text-transform: uppercase;
 }
 
 .upd-hcx {
-position: absolute; bottom: 1.6vw; right: 2vw;
-font-size: 0.65vw; color: rgba(255,255,255,0.15);
-display: flex; align-items: center; gap: 0.3em;
-font-weight: 400; letter-spacing: 0.03em;
+  position: absolute; bottom: 1.6vw; right: 2vw;
+  font-size: 0.65vw; color: rgba(255,255,255,0.15);
+  display: flex; align-items: center; gap: 0.3em;
+  font-weight: 400; letter-spacing: 0.03em;
 }
 .upd-hcx::before {
-content: ‘’;
-width: 0.3em; height: 0.3em;
-background: #7C3AED; border-radius: 50%; opacity: 0.6;
+  content: '';
+  width: 0.3em; height: 0.3em;
+  background: #7C3AED; border-radius: 50%; opacity: 0.6;
 }
 </style>
-
 </head>
 <body>
 <div class="screen">
 
   <!-- HEADER -->
-
   <div class="header">
     <div class="header-left">
       <div class="live-badge"><div class="live-dot"></div>LIVE</div>
@@ -302,31 +299,27 @@ background: #7C3AED; border-radius: 50%; opacity: 0.6;
   </div>
 
   <!-- NEWS LIST -->
-
   <div class="news-list" id="newsList">
 
-```
-<!-- UPDATE OVERLAY (3페이지) -->
-<div class="update-overlay" id="updateOverlay">
-  <div class="upd-inner">
-    <div class="upd-label">Now Updating</div>
-    <div class="upd-title">뉴스 속보<br><span>업데이트</span></div>
-    <div class="upd-sub">최신 뉴스를 불러오는 중입니다</div>
-  </div>
-  <div class="upd-bar-wrap">
-    <div class="upd-bar-track">
-      <div class="upd-bar-fill" id="updBar"></div>
+    <!-- UPDATE OVERLAY (3페이지) -->
+    <div class="update-overlay" id="updateOverlay">
+      <div class="upd-inner">
+        <div class="upd-label">Now Updating</div>
+        <div class="upd-title">뉴스 속보<br><span>업데이트</span></div>
+        <div class="upd-sub">최신 뉴스를 불러오는 중입니다</div>
+      </div>
+      <div class="upd-bar-wrap">
+        <div class="upd-bar-track">
+          <div class="upd-bar-fill" id="updBar"></div>
+        </div>
+        <div class="upd-bar-text" id="updBarText">loading</div>
+      </div>
+      <div class="upd-hcx">Powered by HyperCLOVA X</div>
     </div>
-    <div class="upd-bar-text" id="updBarText">loading</div>
-  </div>
-  <div class="upd-hcx">Powered by HyperCLOVA X</div>
-</div>
-```
 
   </div>
 
   <!-- FOOTER -->
-
   <div class="footer">
     <div class="ai-badge"><div class="ai-dot"></div>HyperCLOVA X 실시간 큐레이션</div>
     <div class="prog-track"><div class="prog-fill" id="progFill"></div></div>
@@ -357,13 +350,13 @@ var loadBarTimer= null;
 //  CLOCK
 // ═══════════════════════════════════════
 function updateClock() {
-var now  = new Date();
-var h    = String(now.getHours()).padStart(2,‘0’);
-var m    = String(now.getMinutes()).padStart(2,‘0’);
-document.getElementById(‘dtTime’).textContent = h + ‘:’ + m;
-var days = [‘일’,‘월’,‘화’,‘수’,‘목’,‘금’,‘토’];
-document.getElementById(‘dtDate’).textContent =
-now.getFullYear() + ’년 ’ + (now.getMonth()+1) + ’월 ’ + now.getDate() + ’일 ’ + days[now.getDay()] + ‘요일’;
+  var now  = new Date();
+  var h    = String(now.getHours()).padStart(2,'0');
+  var m    = String(now.getMinutes()).padStart(2,'0');
+  document.getElementById('dtTime').textContent = h + ':' + m;
+  var days = ['일','월','화','수','목','금','토'];
+  document.getElementById('dtDate').textContent =
+    now.getFullYear() + '년 ' + (now.getMonth()+1) + '월 ' + now.getDate() + '일 ' + days[now.getDay()] + '요일';
 }
 updateClock();
 setInterval(updateClock, 1000);
@@ -372,31 +365,31 @@ setInterval(updateClock, 1000);
 //  HELPERS
 // ═══════════════════════════════════════
 function getFontSize(len, active) {
-if (active) {
-if (len <= 14) return ‘2.4vw’;
-if (len <= 22) return ‘2.15vw’;
-if (len <= 32) return ‘1.9vw’;
-if (len <= 44) return ‘1.7vw’;
-return ‘1.55vw’;
-}
-if (len <= 18) return ‘1.65vw’;
-if (len <= 28) return ‘1.52vw’;
-if (len <= 40) return ‘1.38vw’;
-return ‘1.24vw’;
+  if (active) {
+    if (len <= 14) return '2.4vw';
+    if (len <= 22) return '2.15vw';
+    if (len <= 32) return '1.9vw';
+    if (len <= 44) return '1.7vw';
+    return '1.55vw';
+  }
+  if (len <= 18) return '1.65vw';
+  if (len <= 28) return '1.52vw';
+  if (len <= 40) return '1.38vw';
+  return '1.24vw';
 }
 
 function formatTimeAgo(pubDate) {
-if (!pubDate) return ‘방금 전’;
-var diff = Math.floor((Date.now() - new Date(pubDate)) / 60000);
-if (diff < 1)  return ‘방금 전’;
-if (diff < 60) return diff + ‘분 전’;
-var h = Math.floor(diff / 60);
-if (h < 24)    return h + ‘시간 전’;
-return Math.floor(h / 24) + ‘일 전’;
+  if (!pubDate) return '방금 전';
+  var diff = Math.floor((Date.now() - new Date(pubDate)) / 60000);
+  if (diff < 1)  return '방금 전';
+  if (diff < 60) return diff + '분 전';
+  var h = Math.floor(diff / 60);
+  if (h < 24)    return h + '시간 전';
+  return Math.floor(h / 24) + '일 전';
 }
 
 function setPageChip(text) {
-document.getElementById(‘pageChip’).textContent = text;
+  document.getElementById('pageChip').textContent = text;
 }
 
 // ═══════════════════════════════════════
@@ -404,171 +397,168 @@ document.getElementById(‘pageChip’).textContent = text;
 //  animate: false = 즉시 / true = 롤인 (순차 딜레이)
 // ═══════════════════════════════════════
 function renderCards(data, startRank, animate) {
-var list   = document.getElementById(‘newsList’);
-var overlay= document.getElementById(‘updateOverlay’);
-list.querySelectorAll(’.news-card’).forEach(function(c){ c.remove(); });
+  var list   = document.getElementById('newsList');
+  var overlay= document.getElementById('updateOverlay');
+  list.querySelectorAll('.news-card').forEach(function(c){ c.remove(); });
 
-data.forEach(function(item, i) {
-var rank = startRank + i;
-var card = document.createElement(‘div’);
-card.className = ‘news-card’ + (animate ? ’ roll-in’ : ‘’);
-card.id = ‘card-’ + i;
-if (animate) card.style.animationDelay = (i * 0.09) + ‘s’;
+  data.forEach(function(item, i) {
+    var rank = startRank + i;
+    var card = document.createElement('div');
+    card.className = 'news-card' + (animate ? ' roll-in' : '');
+    card.id = 'card-' + i;
+    if (animate) card.style.animationDelay = (i * 0.09) + 's';
 
-```
-var rankStr  = rank < 10 ? '0' + rank : '' + rank;
-var headline = (item.title || item.headline || '').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&').replace(/<[^>]+>/g,'');
-var timeAgo  = formatTimeAgo(item.pubDate);
+    var rankStr  = rank < 10 ? '0' + rank : '' + rank;
+    var headline = (item.title || item.headline || '').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&').replace(/<[^>]+>/g,'');
+    var timeAgo  = formatTimeAgo(item.pubDate);
 
-card.innerHTML =
-  '<div class="card-row">' +
-    '<div class="rank-num">' + rankStr + '</div>' +
-    '<div class="vline"></div>' +
-    '<div class="headline" id="hl-' + i + '" style="font-size:' + getFontSize(headline.length, false) + '">' + headline + '</div>' +
-  '</div>' +
-  '<div class="card-extra"><div class="time-ago">' + timeAgo + ' 보도</div></div>';
+    card.innerHTML =
+      '<div class="card-row">' +
+        '<div class="rank-num">' + rankStr + '</div>' +
+        '<div class="vline"></div>' +
+        '<div class="headline" id="hl-' + i + '" style="font-size:' + getFontSize(headline.length, false) + '">' + headline + '</div>' +
+      '</div>' +
+      '<div class="card-extra"><div class="time-ago">' + timeAgo + ' 보도</div></div>';
 
-list.insertBefore(card, overlay);
-```
-
-});
+    list.insertBefore(card, overlay);
+  });
 }
 
 // ═══════════════════════════════════════
 //  ACTIVATE CARD
 // ═══════════════════════════════════════
 function activateCard(idx) {
-for (var i = 0; i < 5; i++) {
-var c = document.getElementById(‘card-’ + i);
-if (!c) continue;
-c.classList.remove(‘active’);
-var hl = document.getElementById(‘hl-’ + i);
-if (hl) hl.style.fontSize = getFontSize((hl.textContent || ‘’).length, false);
-}
-if (idx < 0) return;
-var c = document.getElementById(‘card-’ + idx);
-if (c) {
-c.classList.add(‘active’);
-var hl = document.getElementById(‘hl-’ + idx);
-if (hl) hl.style.fontSize = getFontSize((hl.textContent || ‘’).length, true);
-}
+  for (var i = 0; i < 5; i++) {
+    var c = document.getElementById('card-' + i);
+    if (!c) continue;
+    c.classList.remove('active');
+    var hl = document.getElementById('hl-' + i);
+    if (hl) hl.style.fontSize = getFontSize((hl.textContent || '').length, false);
+  }
+  if (idx < 0) return;
+  var c = document.getElementById('card-' + idx);
+  if (c) {
+    c.classList.add('active');
+    var hl = document.getElementById('hl-' + idx);
+    if (hl) hl.style.fontSize = getFontSize((hl.textContent || '').length, true);
+  }
 }
 
 // ═══════════════════════════════════════
 //  UPDATE OVERLAY (3페이지)
 // ═══════════════════════════════════════
 function showUpdateOverlay(duration, onDone) {
-var overlay  = document.getElementById(‘updateOverlay’);
-var bar      = document.getElementById(‘updBar’);
-var barText  = document.getElementById(‘updBarText’);
-overlay.classList.add(‘visible’);
-bar.style.width = ‘0%’;
-if (loadBarTimer) clearInterval(loadBarTimer);
-var elapsed = 0;
-loadBarTimer = setInterval(function() {
-elapsed += 80;
-var pct = Math.min(elapsed / duration * 100, 100);
-bar.style.width = pct + ‘%’;
-var remain = Math.ceil((duration - elapsed) / 1000);
-barText.textContent = remain > 0 ? remain + ‘s’ : ‘done’;
-if (elapsed >= duration) {
-clearInterval(loadBarTimer);
-if (onDone) onDone();
-}
-}, 80);
+  var overlay  = document.getElementById('updateOverlay');
+  var bar      = document.getElementById('updBar');
+  var barText  = document.getElementById('updBarText');
+  overlay.classList.add('visible');
+  bar.style.width = '0%';
+  if (loadBarTimer) clearInterval(loadBarTimer);
+  var elapsed = 0;
+  loadBarTimer = setInterval(function() {
+    elapsed += 80;
+    var pct = Math.min(elapsed / duration * 100, 100);
+    bar.style.width = pct + '%';
+    var remain = Math.ceil((duration - elapsed) / 1000);
+    barText.textContent = remain > 0 ? remain + 's' : 'done';
+    if (elapsed >= duration) {
+      clearInterval(loadBarTimer);
+      if (onDone) onDone();
+    }
+  }, 80);
 }
 
 function hideUpdateOverlay() {
-document.getElementById(‘updateOverlay’).classList.remove(‘visible’);
+  document.getElementById('updateOverlay').classList.remove('visible');
 }
 
 // ═══════════════════════════════════════
 //  SEQUENCE
 // ═══════════════════════════════════════
 function runSeq() {
-clearTimeout(seqTimer);
+  clearTimeout(seqTimer);
 
-// ── 1페이지: 1~5위 ──
-if (seqStep === 0) {
-setPageChip(‘1위 — 5위’);
-activateCard(-1);
-renderCards(allNews.slice(0, 5), 1, false);
-seqTimer = setTimeout(function(){ seqStep = 1; runSeq(); }, 3000);
+  // ── 1페이지: 1~5위 ──
+  if (seqStep === 0) {
+    setPageChip('1위 — 5위');
+    activateCard(-1);
+    renderCards(allNews.slice(0, 5), 1, false);
+    seqTimer = setTimeout(function(){ seqStep = 1; runSeq(); }, 3000);
 
-} else if (seqStep >= 1 && seqStep <= 5) {
-activateCard(seqStep - 1);
-seqTimer = setTimeout(function(){ seqStep++; runSeq(); }, 5000);
+  } else if (seqStep >= 1 && seqStep <= 5) {
+    activateCard(seqStep - 1);
+    seqTimer = setTimeout(function(){ seqStep++; runSeq(); }, 5000);
 
-// ── 1→2페이지 전환 ──
-} else if (seqStep === 6) {
-activateCard(-1);
-seqTimer = setTimeout(function(){
-// 2페이지: 카드 하나하나 롤인 전환
-setPageChip(‘6위 — 10위’);
-var page2 = allNews.slice(5, 10);
-if (page2.length > 0) {
-renderCards(page2, 6, true);   // animate = true → roll-in
-seqTimer = setTimeout(function(){ seqStep = 7; runSeq(); }, 3000);
-} else {
-seqStep = 13; runSeq();
-}
-}, 1500);
+  // ── 1→2페이지 전환 ──
+  } else if (seqStep === 6) {
+    activateCard(-1);
+    seqTimer = setTimeout(function(){
+      // 2페이지: 카드 하나하나 롤인 전환
+      setPageChip('6위 — 10위');
+      var page2 = allNews.slice(5, 10);
+      if (page2.length > 0) {
+        renderCards(page2, 6, true);   // animate = true → roll-in
+        seqTimer = setTimeout(function(){ seqStep = 7; runSeq(); }, 3000);
+      } else {
+        seqStep = 13; runSeq();
+      }
+    }, 1500);
 
-// ── 2페이지: 6~10위 ──
-} else if (seqStep === 7) {
-activateCard(0);
-seqTimer = setTimeout(function(){ seqStep = 8; runSeq(); }, 5000);
+  // ── 2페이지: 6~10위 ──
+  } else if (seqStep === 7) {
+    activateCard(0);
+    seqTimer = setTimeout(function(){ seqStep = 8; runSeq(); }, 5000);
 
-} else if (seqStep >= 8 && seqStep <= 11) {
-activateCard(seqStep - 7);
-seqTimer = setTimeout(function(){ seqStep++; runSeq(); }, 5000);
+  } else if (seqStep >= 8 && seqStep <= 11) {
+    activateCard(seqStep - 7);
+    seqTimer = setTimeout(function(){ seqStep++; runSeq(); }, 5000);
 
-// ── 2페이지 마지막 카드 닫기 ──
-} else if (seqStep === 12) {
-activateCard(-1);
-seqTimer = setTimeout(function(){ seqStep = 13; runSeq(); }, 1500);
+  // ── 2페이지 마지막 카드 닫기 ──
+  } else if (seqStep === 12) {
+    activateCard(-1);
+    seqTimer = setTimeout(function(){ seqStep = 13; runSeq(); }, 1500);
 
-// ── 3페이지: 업데이트 화면 ──
-} else if (seqStep === 13) {
-showUpdateOverlay(5000, function() { fetchNews(); });
-}
+  // ── 3페이지: 업데이트 화면 ──
+  } else if (seqStep === 13) {
+    showUpdateOverlay(5000, function() { fetchNews(); });
+  }
 }
 
 // ═══════════════════════════════════════
 //  FETCH
 // ═══════════════════════════════════════
 async function fetchNews() {
-try {
-var res  = await fetch(’/api/news’);
-var data = await res.json();
-if (!data.items || data.items.length === 0) throw new Error(‘empty’);
-allNews = data.items.slice(0, 10);
-} catch(e) {
-console.error(e);
-if (allNews.length === 0) {
-allNews = Array.from({length:10}, function(_, i){
-return {
-title: i === 0 ? ‘뉴스를 불러오는 중 오류가 발생했습니다’ : ‘잠시 후 자동으로 재시도합니다 (’ + (i+1) + ‘위)’,
-pubDate: null
-};
-});
-}
-}
-hideUpdateOverlay();
-timeLeft = 60;
-document.getElementById(‘progFill’).style.width = ‘0%’;
-document.getElementById(‘countdown’).textContent = ‘60초 후’;
-seqStep = 0;
-setTimeout(runSeq, 100);
+  try {
+    var res  = await fetch('/api/news');
+    var data = await res.json();
+    if (!data.items || data.items.length === 0) throw new Error('empty');
+    allNews = data.items.slice(0, 10);
+  } catch(e) {
+    console.error(e);
+    if (allNews.length === 0) {
+      allNews = Array.from({length:10}, function(_, i){
+        return {
+          title: i === 0 ? '뉴스를 불러오는 중 오류가 발생했습니다' : '잠시 후 자동으로 재시도합니다 (' + (i+1) + '위)',
+          pubDate: null
+        };
+      });
+    }
+  }
+  hideUpdateOverlay();
+  timeLeft = 60;
+  document.getElementById('progFill').style.width = '0%';
+  document.getElementById('countdown').textContent = '60초 후';
+  seqStep = 0;
+  setTimeout(runSeq, 100);
 }
 
 // ═══════════════════════════════════════
 //  PROGRESS BAR
 // ═══════════════════════════════════════
 setInterval(function() {
-timeLeft = Math.max(0, timeLeft - 1);
-document.getElementById(‘progFill’).style.width = ((60 - timeLeft) / 60 * 100) + ‘%’;
-document.getElementById(‘countdown’).textContent = timeLeft + ‘초 후’;
+  timeLeft = Math.max(0, timeLeft - 1);
+  document.getElementById('progFill').style.width = ((60 - timeLeft) / 60 * 100) + '%';
+  document.getElementById('countdown').textContent = timeLeft + '초 후';
 }, 1000);
 
 // ═══════════════════════════════════════
@@ -576,6 +566,5 @@ document.getElementById(‘countdown’).textContent = timeLeft + ‘초 후’;
 // ═══════════════════════════════════════
 showUpdateOverlay(5000, function() { fetchNews(); });
 </script>
-
 </body>
 </html>
